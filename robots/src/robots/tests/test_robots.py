@@ -1,28 +1,17 @@
-import pygame, random, sys
-from pygame.locals import *
+#!/usr/bin/env python
+import unittest
+class Test(unittest.TestCase):   
+    
+    def get_expected_pos(self):
+        return 2, 1
 
-# set up pygame
-pygame.init()
-
-# set up the window
-windowSurface = pygame.display.set_mode((640, 480), 0, 32)
-pygame.display.set_caption('Mechi Pygame & Eclipse')
-
-# set up colors
-WHITE = (255, 255, 255)
-BLUE = (5, 5, 255)
-
-# set up fonts
-basicFont = pygame.font.SysFont("Corpse", 48)
-
-# set up the text
-text = basicFont.render('Isaac Mechi', True, WHITE, BLUE)
-textRect = text.get_rect()
-textRect.centerx = windowSurface.get_rect().centerx
-textRect.centery = windowSurface.get_rect().centery
-
-windowSurface.fill(WHITE)
-
-windowSurface.blit(text, textRect)
-
-pygame.display.update()
+    def test_robots(self):
+        from robots.core import Robot
+        robot = Robot(x=0, y=0)
+        robot.print_mood()  
+        robot.walk(x=2, y=1)
+        expected_position = self.get_expected_pos()
+        self.assertEqual(robot.get_pos(), expected_position)
+        robot.print_mood()  
+        robot.walk(x=2, y=1)
+        robot.print_mood()
